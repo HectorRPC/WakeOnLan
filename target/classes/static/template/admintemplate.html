@@ -1,0 +1,40 @@
+<div ng-controller="SocialController">
+    <md-content>
+        <md-list>
+            <md-subheader class="md-no-sticky">Miembros</md-subheader>
+
+            <md-list-item class="md-3-line" ng-repeat="member in listaUsers">
+                <md-card style="padding:10px">
+                    <img ng-src="{{member.avatarfile}}?{{$index}}" class="md-avatar avatar-redon-med" alt="{{item.who}}" />
+                    <div>
+                        <h3>Alias: {{ member.alias }} - Nombre: {{member.name}}</h3>
+                        <h4>{{ member.degree }}</h4>
+                        <div>
+                            <div>
+                            <md-switch ng-model="member.pay" aria-label="Switch 2">
+                                Pago: {{ member.pay }}
+                            </md-switch>
+                            <md-switch ng-model="member.admin" aria-label="Switch 2">
+                                Admin: {{ member.admin }}
+                            </md-switch>
+                            </div>
+                            <md-button class="md-icon-button" aria-label="Eliminar" ng-hide="{{(member.alias === aliasactual)}}" ng-click="eliminarUsuario(member)">
+                                <i class="mdi mdi-delete"></i>
+                                <md-tooltip>
+                                    Eliminar Miembro
+                                </md-tooltip>
+                            </md-button>
+                            <md-button class="md-icon-button" aria-label="Eliminar" ng-click="actualizarUsuario(member)">
+                                <i class="mdi mdi-content-save"></i>
+                                <md-tooltip>
+                                    Guardar Cambios
+                                </md-tooltip>
+                            </md-button>
+                        </div>
+                    </div>
+                </md-card>
+            </md-list-item>
+
+        </md-list>
+    </md-content>
+</div>
