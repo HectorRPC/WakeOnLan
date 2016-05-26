@@ -37,10 +37,7 @@ public class WakeOnLanController {
 		}else{
 			return null;
 		}
-		
-		
-		
-		
+			
 	}
 	
 	//Elimina un ordenador
@@ -66,95 +63,80 @@ public class WakeOnLanController {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@RequestMapping(value = "/poststext", method = RequestMethod.GET)
-	public Iterable<PostText> getPostsText(){
-			return this.wolService.getPostsText();
+	//Devuelve una lista de todas las aulas
+	@RequestMapping(value = "/aulas", method = RequestMethod.GET)
+	public Iterable<Aula> getAulas(HttpSession session){
+		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+			return this.wolService.getAulas();
+		}else{
+			return null;
+		}
 	}
 	
-	@RequestMapping(value = "/poststext/delete", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> deletePostText(@RequestBody PostText post){
-		wolService.deleteText(post);	
-		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+	//Devuelve una lista de las aulas de un aulario
+	@RequestMapping(value="/aulas/{aulario}", method = RequestMethod.GET)
+	public Iterable<Aula> getAulasAulario(@PathVariable("aulario") int aulario, HttpSession session){
+		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+			Aulario a = this.wolService.getAulariosNumero(aulario).iterator().next();
+			return this.wolService.getAulasAulario(a);
+		}else{
+			return null;
+		}
+			
 	}
 	
-	@RequestMapping(value = "/postsvideo", method = RequestMethod.GET)
-	public Iterable<PostVideo> getPostsVideo(){
-			return this.postService.getPostsVideo();
+	//Elimina un aula
+	@RequestMapping(value = "/aula/delete", method = RequestMethod.POST)
+	public ResponseEntity<Boolean> deleteAula(@RequestBody Aula aula, HttpSession session){
+		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+			wolService.deleteAula(aula);
+			return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+		}else{
+			return new ResponseEntity<Boolean>(true,HttpStatus.UNAUTHORIZED);
+		}
 	}
-	
-	@RequestMapping(value = "/postsvideo/delete", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> deletePostVideo(@RequestBody PostVideo post){
-		postService.deleteVideo(post);	
-		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/postsmusic", method = RequestMethod.GET)
-	public Iterable<PostMusic> getPostsMusic(){
-			return this.postService.getPostsMusic();
-	}
-	
-	@RequestMapping(value = "/postsmusic/delete", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> deletePostMusic(@RequestBody PostMusic post){
-		postService.deleteMusic(post);	
-		return new ResponseEntity<Boolean>(true,HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/postsimage", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> addPostImage(@RequestBody PostImage post){
-		postService.addPostImage(post);
-		return new ResponseEntity<Boolean>(true,HttpStatus.CREATED);
+		
+	//Añade un aula
+	@RequestMapping(value = "/aula", method = RequestMethod.POST)
+	public ResponseEntity<Boolean> addAula(@RequestBody Aula aula, HttpSession session){
+		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+			wolService.addAula(aula);
+			return new ResponseEntity<Boolean>(true,HttpStatus.CREATED);
+		}else{
+			return new ResponseEntity<Boolean>(true,HttpStatus.UNAUTHORIZED);
+		}
 		
 	}
 	
-	@RequestMapping(value = "/poststext", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> addPostText(@RequestBody PostText post){
-		postService.addPostText(post);
-		return new ResponseEntity<Boolean>(true,HttpStatus.CREATED);
+	//Devuelve una lista de todos los aularios
+		@RequestMapping(value = "/aularios", method = RequestMethod.GET)
+		public Iterable<Aulario> getAularios(HttpSession session){
+			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+				return this.wolService.getAularios();
+			}else{
+				return null;
+			}
+		}
 		
-	}
-	
-	@RequestMapping(value = "/postsvideo", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> addPostVideo(@RequestBody PostVideo post){
-		postService.addPostVideo(post);
-		return new ResponseEntity<Boolean>(true,HttpStatus.CREATED);
+		//Elimina un aulario
+		@RequestMapping(value = "/aulario/delete", method = RequestMethod.POST)
+		public ResponseEntity<Boolean> deleteAulario(@RequestBody Aulario aulario, HttpSession session){
+			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+				wolService.deleteAulario(aulario);
+				return new ResponseEntity<Boolean>(true,HttpStatus.OK);
+			}else{
+				return new ResponseEntity<Boolean>(true,HttpStatus.UNAUTHORIZED);
+			}
+		}
 		
-	}
-	
-	@RequestMapping(value = "/postsmusic", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> addPostMusic(@RequestBody PostMusic post){
-		postService.addPostMusic(post);
-		return new ResponseEntity<Boolean>(true,HttpStatus.CREATED);
-		
-	}
-	
-	@RequestMapping(value="/postsimage/{author}", method = RequestMethod.GET)
-	public Iterable<PostImage> getPostsImageAuthor(@PathVariable("author") String author){
-		return this.postService.getPostsImage(author);
-	}
-	
-	@RequestMapping(value="/poststext/{author}", method = RequestMethod.GET)
-	public Iterable<PostText> getPostsTextAuthor(@PathVariable("author") String author){
-		return this.postService.getPostsText(author);
-	}
-	
-	@RequestMapping(value="/postvideo/{author}", method = RequestMethod.GET)
-	public Iterable<PostVideo> getPostsVideoAuthor(@PathVariable("author") String author){
-		return this.postService.getPostsVideo(author);
-	}
-	
-	@RequestMapping(value="/postmusic/{author}", method = RequestMethod.GET)
-	public Iterable<PostMusic> getPostsMusicAuthor(@PathVariable("author") String author){
-		return this.postService.getPostsMusic(author);
-	}
+		//Añade un aulario
+		@RequestMapping(value = "/aulario", method = RequestMethod.POST)
+		public ResponseEntity<Boolean> addAulario(@RequestBody Aulario aulario, HttpSession session){
+			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+				wolService.addAulario(aulario);
+				return new ResponseEntity<Boolean>(true,HttpStatus.CREATED);
+			}else{
+				return new ResponseEntity<Boolean>(true,HttpStatus.UNAUTHORIZED);
+			}
+		}
 }

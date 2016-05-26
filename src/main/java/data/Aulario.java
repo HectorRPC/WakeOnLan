@@ -16,13 +16,16 @@ public class Aulario {
 	
 	@OneToMany(mappedBy="aulario")
 	private ArrayList<Aula> aulas;
+	
+	private int numero;
 
 	//Constructores
     public Aulario() {
     }
 
-    public Aulario(ArrayList<Aula> aulas) {
+    public Aulario(ArrayList<Aula> aulas, int numero) {
         this.aulas = aulas;
+        this.numero = numero;
     }
 
     //Getters & Setters
@@ -34,8 +37,16 @@ public class Aulario {
         this.aulas = aulas;
     }
 
-    
-    //Añade el aula deseado al aulario.
+    public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	
+	//Añade el aula deseado al aulario.
     public void addAula(Aula aula){
         this.aulas.add(aula);
     }
