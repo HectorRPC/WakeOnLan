@@ -30,7 +30,7 @@ public class WakeOnLanService {
 	
 	//Devuelve todos los ordenadores que contienen el Sring especificado en su nombre de equipo
 	public Iterable<Ordenador> getOrdenadoresNombre(String nombre_equipo){
-		return ordenadorRepo.findByNombre_equipoContaining(nombre_equipo);
+		return ordenadorRepo.findByNombreContaining(nombre_equipo);
 	}
 	
 	//Devuelve todos los ordenadores de un aula determinada
@@ -59,7 +59,7 @@ public class WakeOnLanService {
 	}
 	
 	//Devuelve todos los aularios con un determinado numero
-	public Iterable<Aulario> getAulariosNumero(int numero){
+	public Aulario getAulariosNumero(int numero){
 		return aularioRepo.findByNumero(numero);
 	}
 	

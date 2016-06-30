@@ -1,6 +1,7 @@
 package data;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,10 +17,12 @@ public class Aula {
 	private long id;
 	
 	@OneToMany(mappedBy="aula")	
-    private ArrayList<Ordenador> ordenadores;
+    private List<Ordenador> ordenadores;
 
 	@ManyToOne
 	private Aulario aulario;
+	
+	
 	
 	private int numero;
 	
@@ -27,7 +30,7 @@ public class Aula {
     public Aula() {
     }
 
-    public Aula(ArrayList<Ordenador> ordenadores, Aulario aulario, int numero) {
+    public Aula(List<Ordenador> ordenadores, Aulario aulario, int numero) {
 		super();
 		this.ordenadores = ordenadores;
 		this.aulario = aulario;
@@ -35,15 +38,15 @@ public class Aula {
 	}
 
 	//Getters & Setters
-    public ArrayList<Ordenador> getOrdenadores() {
+    public List<Ordenador> getOrdenadores() {
         return ordenadores;
     }
 
-    public void setOrdenadores(ArrayList<Ordenador> ordenadores) {
+    public void setOrdenadores(List<Ordenador> ordenadores) {
         this.ordenadores = ordenadores;
     }
     
-    public Aulario getAulario() {
+    public Aulario getEdificio() {
 		return aulario;
 	}
 

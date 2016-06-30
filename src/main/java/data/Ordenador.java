@@ -22,7 +22,7 @@ public class Ordenador {
 	
     private String ipStr;
     private String macStr;
-    private String nombre_equipo;
+    private String nombre;
     public static final int PORT = 9;
 
     //Constructores
@@ -30,12 +30,12 @@ public class Ordenador {
     	
 	}
 
-    public Ordenador(Aula aula, String ipStr, String macStr, String nombreEquipo) {
+    public Ordenador(Aula aula, String ipStr, String macStr, String nombre) {
 		super();
 		this.aula = aula;
 		this.ipStr = ipStr;
 		this.macStr = macStr;
-		this.nombre_equipo = nombreEquipo;
+		this.nombre = nombre;
 	}
 
 	//Getters & Setters
@@ -55,12 +55,12 @@ public class Ordenador {
         this.macStr = macStr;
     }
 
-    public String getNombreEquipo() {
-        return nombre_equipo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreEquipo(String nombreEquipo) {
-        this.nombre_equipo = nombreEquipo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
     
