@@ -1,245 +1,45 @@
 <!doctype html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+    <title>Wake On Lan URJC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-<head>
-    <!-- Angular Material Dependencies -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-resource.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
-    <!-- Angular Material Javascript now available via Google CDN; version 0.8 used here -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.js"></script>
-    <!-- Angular Material CSS now available via Google CDN; version 0.8 used here -->
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css">
-    <link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="css/style.css">
-    <script src="./app/app.js"></script>
-    <script src="./app/controller.js"></script>
-    <script src="./app/imageService.js"></script>
-    <script src="./app/musicaService.js"></script>
-    <script src="./app/textService.js"></script>
-    <script src="./app/trustAsResourceUrl.js"></script>
-    <script src="./app/routeConfig.js"></script>
-    <script src="./app/usuarioService.js"></script>
-    <script src="./app/videoService.js"></script>
-    <script src="./app/loginController.js"></script>
-    <script src="./app/postscontroller.js"></script>
-    <script src="./app/socialController.js"></script>
-    <script src="app/msgService.js"></script>
-
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="css/style.css" th:href="@{css/style.css}" />
 </head>
 
-<body ng-app="app" ng-controller="Controller as vm">
-    <div class="fondo">
-        <div ng-controller="AppCtrl" layout="column" style="min-height=600">
-            <section layout="row">
-
-
-                <!--Left sidenav-->
-                <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left">
-                    <md-toolbar class="md-theme-indigo">
-                        <h1 class="md-toolbar-tools">Panel de Control</h1>
-                    </md-toolbar>
-                    <md-content ng-controller="LeftCtrl">
-                        <div ng-controller="PostsController" flex>
-                            <md-grid-list md-cols-sm="2" md-cols-md="2" md-cols-gt-md="2" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter="8px" md-gutter-gt-sm="4px">
-                                <md-grid-tile class="tile_menu1 tile_menu" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
-                                    <md-button class="md-fab md-primary" ng-click="showTextDialog($event)">
-                                        <i class="mdi mdi-alphabetical icon-med"></i>
-                                    </md-button>
-                                    <md-grid-tile-footer>
-                                        <h3>Post de Texto</h3>
-                                    </md-grid-tile-footer>
-                                </md-grid-tile>
-
-                                <md-grid-tile class="tile_menu2 tile_menu" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
-                                    <md-button class="md-fab md-primary menu_fab" ng-click="showImageDialog($event)">
-                                        <i class="mdi mdi-file-image-box"></i>
-                                    </md-button>
-                                    <md-grid-tile-footer>
-                                        <h3>Post de Imagen</h3>
-                                    </md-grid-tile-footer>
-                                </md-grid-tile>
-
-                                <md-grid-tile class="tile_menu3 tile_menu" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
-                                    <md-button class="md-fab md-primary menu_fab" ng-click="showVideoDialog($event)">
-                                        <i class="mdi mdi-video"></i>
-                                    </md-button>
-                                    <md-grid-tile-footer>
-                                        <h3>Post de Video</h3>
-                                    </md-grid-tile-footer>
-                                </md-grid-tile>
-
-                                <md-grid-tile class="tile_menu4 tile_menu" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
-                                    <md-button class="md-fab md-primary menu_fab" ng-click="showMusicDialog($event)">
-                                        <i class="mdi mdi-music-note"></i>
-                                    </md-button>
-                                    <md-grid-tile-footer>
-                                        <h3>Post de Música</h3>
-                                    </md-grid-tile-footer>
-                                </md-grid-tile>
-
-
-
-                                <md-grid-tile class="tile_menu5 tile_menu" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
-                                    <md-button class="md-fab md-primary menu_fab" ng-click="vm.showMsgPrivate()">
-                                        <i class="mdi mdi-email"></i>
-                                    </md-button>
-                                    <md-grid-tile-footer>
-                                        <h3>Mis Mensajes</h3>
-                                    </md-grid-tile-footer>
-                                </md-grid-tile>
-
-                                <md-grid-tile class="tile_menu6 tile_menu" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
-                                    <md-button class="md-fab md-primary menu_fab" ng-click="vm.showListMembers()">
-                                        <i class="mdi mdi-account-multiple"></i>
-                                    </md-button>
-                                    <md-grid-tile-footer>
-                                        <h3>Miembros LCDD</h3>
-                                    </md-grid-tile-footer>
-                                </md-grid-tile>
-
-                                <md-grid-tile class="tile_menu7 tile_menu" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
-                                    <md-button class="md-fab md-primary menu_fab" ng-controller="LoginController" ng-click="showAjustes()">
-                                        <i class="mdi mdi-settings"></i>
-                                    </md-button>
-                                    <md-grid-tile-footer>
-                                        <h3>Ajustes</h3>
-                                    </md-grid-tile-footer>
-                                </md-grid-tile>
-
-                                <md-grid-tile ng-show="admin" class="tile_menu8 tile_menu animate-show" md-rowspan="1" md-colspan="1" md-colspan-sm="1">
-                                    <md-button class="md-fab md-primary menu_fab" ng-click="showAdmin()">
-                                        <i class="mdi mdi-security"></i>
-                                    </md-button>
-                                    <md-grid-tile-footer>
-                                        <h3>Administración</h3>
-                                    </md-grid-tile-footer>
-                                </md-grid-tile>
-                            </md-grid-list>
-                        </div>
-                        <br>
-                        <div>
-                            <md-button style="display:block; margin-left: auto;	margin-right: auto;" ng-click="close()" class="md-primary md-raised centrado">
-                                Cerrar
-                            </md-button>
-                        </div>
-
-                    </md-content>
-                </md-sidenav>
-                <div flex="100" style="max-width: 800px; margin-left: auto; margin-right: auto;">
-                    <!--TOOLBAR-->
-                    <md-toolbar id="navbar">
-                        <div class="md-toolbar-tools">
-                            <div ng-show="logged" class="animate-show">
-                                <md-button class="md-icon-button" ng-click="toggleLeft()" aria-label="Settings">
-                                    <i class="mdi mdi-menu"></i>
-                                    <md-tooltip>
-                                        Menu
-                                    </md-tooltip>
-                                </md-button>
-                            </div>
-                            <div class="animate-show">
-                                <md-button class="md-icon-button" ng-click="vm.showHome()" aria-label="Settings">
-                                    <i class="mdi mdi-home"></i>
-                                    <md-tooltip>
-                                        Inicio
-                                    </md-tooltip>
-                                </md-button>
-                            </div>
-                            
-                            <h2 style="margin: 0 auto;" flex="34">
-                                <img src="media/img/logolcdd.png" style="max-height:60px; margin-left: auto; margin-right: auto;">
-                            </h2>
-                            <span flex></span>
-                            <div ng-hide="logged" class="animate-hide centrado">
-                                <md-button class="md-icon-button" aria-label="Favorite" ng-controller="LoginController" ng-click="showLoginDialog($event)">
-                                    <i class="mdi mdi-account"></i>
-                                    <md-tooltip>
-                                        Login
-                                    </md-tooltip>
-                                </md-button>
-                                <md-button class="md-icon-button" aria-label="Favorite" ng-controller="LoginController" ng-click="vm.showRegister()">
-                                    <i class="mdi mdi-account-plus"></i>
-                                    <md-tooltip>
-                                        Registrar
-                                    </md-tooltip>
-                                </md-button>
-                            </div>
-                            <div ng-show="logged" class="animate-show centrado">
-
-                                <md-button class="md-primary" style="color: white"><img ng-src="{{currentuser.avatarfile}}" class="avatar-redon-peq" /> {{currentuser.alias}}
-
-                                    <md-tooltip>
-                                        Bienvenido
-                                    </md-tooltip>
-                                </md-button>
-                                <md-button ng-click="vm.cerrarSesion()" class="md-primary" style="color: white">
-                                    <i class="mdi mdi-run"></i>
-                                    <md-tooltip>
-                                        Cerrar Sesion
-                                    </md-tooltip>
-                                </md-button>
-                                <md-button ng-click="toggleRight()" class="md-primary" style="color: white">
-                                    <i class="mdi mdi-message"></i>
-                                    <md-tooltip>
-                                        Chat
-                                    </md-tooltip>
-                                </md-button>
-                            </div>
-                        </div>
-                    </md-toolbar>
-
-                    <!--All content-->
-                    <md-content flex layout-padding>
-
-                        <div layout="column" layout-fill layout-align="top center" style="margin-top: 45px;">
-
-                            <div>
-                                <md-content class="md-padding">
-
-
-                                    <div ng-view>
-                                        <!--Cuerpo Post-->
-                                    </div>
-                                </md-content>
-                            </div>
-
-
-
-
-
-                        </div>
-
-                    </md-content>
-                </div>
-                <!--Right sidenav-->
-                <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
-                    <md-toolbar class="md-theme-light">
-                        <h1 class="md-toolbar-tools">Chat</h1>
-                    </md-toolbar>
-                    <md-content ng-controller="RightCtrl" layout-padding>
-                        <!-- Start Chat Code -->
-                        <iframe WIDTH="285" HEIGHT="380" title="Shoutbox" src="http://shoutbox.widget.me/window.html?uid=2ohs1p2j" frameborder="0" scrolling="auto"></iframe>
-
-                        <!-- End Chat Code -->
-                        <div>
-                            <md-button style="display:block; margin-left: auto;	margin-right: auto;" ng-click="close()" class="md-primary md-raised centrado">
-                                Cerrar Chat
-                            </md-button>
-                        </div>
-                    </md-content>
-                </md-sidenav>
-
-            </section>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="text-center col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
+                <form class="form-horizontal">
+  <div class="form-group">
+    <label for="inputUser" class="col-sm-3 control-label">Usuario</label>
+    <div class="col-sm-9">
+      <input type="user" class="form-control" id="inputEmail3" placeholder="Usuario">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-3 control-label">Contraseña</label>
+    <div class="col-sm-9">
+      <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Acceder</button>
+    </div>
+  </div>
+</form>
+            </div>
         </div>
-
-
     </div>
 </body>
-
-
 </html>

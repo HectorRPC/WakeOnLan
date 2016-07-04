@@ -17,8 +17,33 @@ public class WakeOnLanController {
 	
 	@Autowired
 	private WakeOnLanService wolService;
+	@Autowired
+	private UserService userService;
 	
-	
+	//Tras loguearse, devuelve el menú
+		@RequestMapping(value = "/menu", method = RequestMethod.POST)
+		public ModelAndView menu(@PathVariable("user") String user, @PathVariable("password") String password, HttpSession session){
+			User usr = null;
+			usr = userService.getUserbyAlias(user);
+			if (usr != null){
+				if (usr.getPass()==password){
+					session.setAttribute("logged", true);
+					return new ModelAndView("menu");
+				}else{
+					return new ModelAndView("loginForm").addObject("status", "Usuario o contraseña incorrectos.");
+				}
+			}else{
+				return new ModelAndView("loginForm").addObject("status", "Usuario o contraseña incorrectos.");
+			}
+		}
+		
+		//Deslogueo
+				@RequestMapping(value = "/menu", method = RequestMethod.POST)
+				public ModelAndView menu(@PathVariable("user") String user, HttpSession session){
+					session.setAttribute("logged", false);
+					return new ModelAndView("index");
+				}
+		
 	//Devuelve una lista de todos los ordenadores
 	@RequestMapping(value = "/ordenadores", method = RequestMethod.GET)
 	public ModelAndView getOrdenadores(HttpSession session){

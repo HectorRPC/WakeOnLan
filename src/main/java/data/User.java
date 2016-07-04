@@ -16,11 +16,7 @@ public class User {
 	private String name;
 	private String pass;
 	private String mail;
-	private String tlf;
-	private boolean pay;
 	private boolean admin;
-	private String avatarfile;
-	private String degree;
 	public User(){
 		
 	}
@@ -35,14 +31,8 @@ public class User {
 		this.name = name;
 		this.pass = pass;
 		this.mail = mail;
-		this.tlf = tlf;
-		this.pay = pay;
 		this.admin=admin;
-		this.avatarfile = avatarfile;
-		this.degree = degree;
 	}
-	
-	
 	
 	public long getId() {
 		return id;
@@ -80,41 +70,13 @@ public class User {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public String getTlf() {
-		return tlf;
-	}
-	public void setTlf(String tlf) {
-		this.tlf = tlf;
-	}
-	public boolean isPay() {
-		return pay;
-	}
-	public void setPay(boolean pay) {
-		this.pay = pay;
-	}
-	public String getAvatarfile() {
-		return avatarfile;
-	}
-	public void setAvatarfile(String avatarfile) {
-		this.avatarfile = avatarfile;
-	}
-	public String getDegree() {
-		return degree;
-	}
-	public void setDegree(String degree) {
-		this.degree = degree;
-	}
 	
 	public void setAll(User user){
 		this.alias = user.alias;
 		this.name = user.name;
 		this.pass = user.pass;
 		this.mail = user.mail;
-		this.tlf = user.tlf;
-		this.pay = user.pay;
 		this.admin=user.admin;
-		this.avatarfile = user.avatarfile;
-		this.degree = user.degree;
 	}
 	
 }
