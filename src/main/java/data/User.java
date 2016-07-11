@@ -24,16 +24,16 @@ public class User {
 		this.alias = alias;
 		this.pass=pass;
 	}
-	public User(String alias, String name, String pass, String mail,
-			String tlf, boolean pay,boolean admin, String avatarfile, String degree) {
+	
+	
+	public User(String alias, String name, String pass, String mail, boolean admin) {
 		super();
 		this.alias = alias;
 		this.name = name;
 		this.pass = pass;
 		this.mail = mail;
-		this.admin=admin;
+		this.admin = admin;
 	}
-	
 	public long getId() {
 		return id;
 	}

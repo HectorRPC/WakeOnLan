@@ -24,19 +24,22 @@
 
     <div class="container-fluid">
         <div class="row">
+            <h2 class="text-center">Menú</h2>
+        </div>
+        <div class="row">
             <div id="login-form" class="text-center col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
 
                 <form class="form-horizontal" action="/login" method="POST">
                     <div class="form-group">
-                        <label for="inputUser" class="col-sm-3 control-label">Usuario</label>
+                        <label class="col-sm-3 control-label">Usuario</label>
                         <div class="col-sm-9">
-                            <input name="user" type="text" class="form-control" id="inputEmail" placeholder="Usuario" required>
+                            <input name="user" type="text" class="form-control" placeholder="Usuario" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputPassword" class="col-sm-3 control-label">Contraseña</label>
+                        <label class="col-sm-3 control-label">Contraseña</label>
                         <div class="col-sm-9">
-                            <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Contraseña" required>
+                            <input name="password" type="password" class="form-control" placeholder="Contraseña" required>
                         </div>
                         <span id="login-error" th:if="${status != null}"><span th:text="${error.summary}"></span></span>
                     </div>

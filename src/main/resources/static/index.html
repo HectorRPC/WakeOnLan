@@ -16,26 +16,33 @@
 </head>
 
 <body>
+    <nav id="navbar" class="navbar navbar-default navbar-static-top">
+        <div  class="container">
+            <h1 class="text-center">Wake On Lan URJC</h1>
+        </div>
+    </nav>
+
     <div class="container-fluid">
         <div class="row">
-            <div class="text-center col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
-                
-                <form class="form-horizontal" action="demo_form.asp" method="get">
+            <div id="login-form" class="text-center col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
+
+                <form class="form-horizontal" action="/login" method="POST">
                     <div class="form-group">
                         <label for="inputUser" class="col-sm-3 control-label">Usuario</label>
                         <div class="col-sm-9">
-                            <input type="user" class="form-control" id="inputEmail3" placeholder="Usuario">
+                            <input name="user" type="text" class="form-control" id="inputEmail" placeholder="Usuario" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-3 control-label">Contraseña</label>
+                        <label for="inputPassword" class="col-sm-3 control-label">Contraseña</label>
                         <div class="col-sm-9">
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña">
+                            <input name="password" type="password" class="form-control" id="inputPassword" placeholder="Contraseña" required>
                         </div>
+                        <span id="login-error" th:if="${status != null}"><span th:text="${error.summary}"></span></span>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Acceder</button>
+                        <div class="col-sm-offset-2 col-sm-8">
+                            <button type="submit" class="btn btn-primary">Acceder</button>
                         </div>
                     </div>
                 </form>
