@@ -21,20 +21,19 @@ public class UserController {
 	private UserService userService;
 
 	//Tras loguearse, devuelve el menú
-	@RequestMapping("/login")
+	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public ModelAndView login(HttpSession session, @RequestParam String user, @RequestParam String pass){
-//		User usr = null;
-//		try{
-//			usr = userService.getUserbyAlias(user);
-//		}catch(Exception e){}
-//		
-//		if ((usr != null)&&(usr.getPass()==pass)) {
-//			session.setAttribute("logged", true);
-//			return new ModelAndView("menu");
-//		}else{
-//			return new ModelAndView("index").addObject("status", "Usuario o contraseña incorrectos.");
-//		}
-		return new ModelAndView("index_template").addObject("status", "Prueba.");
+		User usr = null;
+		try{
+			usr = userService.getUserbyAlias(user);
+		}catch(Exception e){}
+		
+		if ((usr != null)&&(usr.getPass()==pass)) {
+			session.setAttribute("logged", true);
+			return new ModelAndView("menu");
+		}else{
+			return new ModelAndView("index_template").addObject("status", "Usuario o contraseña incorrectos.");
+		}
 	}
 			
 	//Deslogueo
