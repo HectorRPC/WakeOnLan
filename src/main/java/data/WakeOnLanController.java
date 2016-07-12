@@ -22,25 +22,9 @@ public class WakeOnLanController {
 	@Autowired
 	private UserService userService;
 	
-	//Tras loguearse, devuelve el menú
-		@RequestMapping(value = "/login")
-		public ModelAndView login(@RequestParam("user") String user, @RequestParam("password") String password, HttpSession session){
-			User usr = null;
-			usr = userService.getUserbyAlias(user);
-			if ((usr != null)&&(usr.getPass()==password)) {
-				session.setAttribute("logged", true);
-				return new ModelAndView("menu");
-			}else{
-				return new ModelAndView("index").addObject("status", "Usuario o contraseña incorrectos.");
-			}
-		}
+	
 		
-		//Deslogueo
-				@RequestMapping(value = "/logout", method = RequestMethod.GET)
-				public ModelAndView logout(HttpSession session){
-					session.setAttribute("logged", false);
-					return new ModelAndView("index");
-				}
+		
 		
 	//Devuelve una lista de todos los ordenadores
 	@RequestMapping(value = "/ordenadores", method = RequestMethod.GET)
@@ -180,4 +164,7 @@ public class WakeOnLanController {
 				return new ModelAndView("index");
 			}
 		}
+		
+		
+		
 }

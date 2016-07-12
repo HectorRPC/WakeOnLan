@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>es.coca</groupId>
-	<artifactId>Practica3Daw</artifactId>
+	<artifactId>WakeOnLan</artifactId>
 	<version>0.0.1.SNAPSHOT</version>
 
 	<parent>
@@ -35,10 +35,9 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-		<dependency>
-		    <groupId>org.thymeleaf</groupId>
-		    <artifactId>thymeleaf</artifactId>
+		</dependency><dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
