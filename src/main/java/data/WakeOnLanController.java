@@ -25,25 +25,40 @@ public class WakeOnLanController {
 	
 		
 		
-		
+	//Devuelve la página de inicio
+		@RequestMapping(value = "/index")
+		public ModelAndView index(HttpSession session){
+			return new ModelAndView("index_template");
+		}
+	
 	//Devuelve una lista de todos los ordenadores
 	@RequestMapping(value = "/ordenadores", method = RequestMethod.GET)
 	public ModelAndView getOrdenadores(HttpSession session){
 		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
-			return new ModelAndView("listaOrdenadores").addObject("ordenadores", this.wolService.getOrdenadores());
+			return new ModelAndView("listaOrdenadores_template").addObject("ordenadores", this.wolService.getOrdenadores());
 		}else{
-			return new ModelAndView("index");
+			return new ModelAndView("index_template");
 		}
 	}
 	
+	//Busca ordenadores por nombre de equipo
+		@RequestMapping(value = "/ordenadores/{nombre_equipo}", method = RequestMethod.GET)
+		public ModelAndView getOrdenadoresByNombre(HttpSession session, @PathVariable("nombre_equipo") String nombre_equipo){
+			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+				return new ModelAndView("listaOrdenadores_template").addObject("ordenadores", this.wolService.getOrdenadoresNombre(nombre_equipo));
+			}else{
+				return new ModelAndView("index_template");
+			}
+		}
+	
 	//Devuelve una lista de los ordenadores de un aula
 	@RequestMapping(value="/ordenadores/{aula}", method = RequestMethod.GET)
-	public ModelAndView getOrdenadorAula(@RequestParam("aula") int aula, HttpSession session){
+	public ModelAndView getOrdenadorAula(@PathVariable("aula") int aula, HttpSession session){
 		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
 			Aula a = this.wolService.getAulasNumero(aula).iterator().next();
 			return new ModelAndView("listaOrdenadores").addObject("ordenadores", this.wolService.getOrdenadoresAula(a));
 		}else{
-			return new ModelAndView("index");
+			return new ModelAndView("index_template");
 		}
 			
 	}
@@ -58,7 +73,7 @@ public class WakeOnLanController {
 				return new ModelAndView("actionPerformed").addObject("status", "error");
 			}
 		}else{
-			return new ModelAndView("index");
+			return new ModelAndView("index_template");
 		}
 	}
 	
@@ -72,7 +87,7 @@ public class WakeOnLanController {
 				return new ModelAndView("actionPerformed").addObject("status", "error");
 			}
 		}else{
-			return new ModelAndView("index");
+			return new ModelAndView("index_template");
 		}
 		
 	}
@@ -83,7 +98,7 @@ public class WakeOnLanController {
 		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
 			return new ModelAndView("aulas").addObject("aulas", this.wolService.getAulas());
 		}else{
-			return new ModelAndView("index");
+			return new ModelAndView("index_template");
 		}
 	}
 	
@@ -93,7 +108,7 @@ public class WakeOnLanController {
 		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
 			return new ModelAndView("aulas").addObject("aulas", this.wolService.getAulariosNumero(aulario).getAulas());
 		}else{
-			return new ModelAndView("index");
+			return new ModelAndView("index_template");
 		}
 			
 	}
@@ -108,7 +123,7 @@ public class WakeOnLanController {
 				return new ModelAndView("actionPerformed").addObject("status", "error");
 			}
 		}else{
-			return new ModelAndView("index");
+			return new ModelAndView("index_template");
 		}
 	}
 		
@@ -122,7 +137,7 @@ public class WakeOnLanController {
 				return new ModelAndView("actionPerformed").addObject("status", "error");
 			}
 		}else{
-			return new ModelAndView("index");
+			return new ModelAndView("index_template");
 		}
 		
 	}
@@ -133,7 +148,7 @@ public class WakeOnLanController {
 			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
 				return new ModelAndView("aularios").addObject("aularios", this.wolService.getAularios());
 			}else{
-				return new ModelAndView("index");
+				return new ModelAndView("index_template");
 			}
 		}
 		
@@ -147,7 +162,7 @@ public class WakeOnLanController {
 					return new ModelAndView("actionPerformed").addObject("status", "error");
 				}
 			}else{
-				return new ModelAndView("index");
+				return new ModelAndView("index_template");
 			}
 		}
 		
@@ -161,7 +176,7 @@ public class WakeOnLanController {
 					return new ModelAndView("actionPerformed").addObject("status", "error");
 				}
 			}else{
-				return new ModelAndView("index");
+				return new ModelAndView("index_template");
 			}
 		}
 		

@@ -24,23 +24,22 @@ public class UserController {
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public ModelAndView login(HttpSession session, @RequestParam String user, @RequestParam String pass){
 		User usr = null;
-		try{
-			usr = userService.getUserbyAlias(user);
-		}catch(Exception e){}
-		
-		if ((usr != null)&&(usr.getPass()==pass)) {
+		usr = userService.getUserbyAlias(user);
+		if ((usr != null)&&(usr.getPass().equals(pass))) {
 			session.setAttribute("logged", true);
-			return new ModelAndView("menu");
+			session.setAttribute("user", usr.getAlias());
+			return new ModelAndView("menu").addObject("user", session.getAttribute("user"));
 		}else{
 			return new ModelAndView("index_template").addObject("status", "Usuario o contraseña incorrectos.");
 		}
 	}
 			
 	//Deslogueo
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@RequestMapping(value = "/logout")
 	public ModelAndView logout(HttpSession session){
 		session.setAttribute("logged", false);
-		return new ModelAndView("index");
+		session.setAttribute("user", null);
+		return new ModelAndView("index_template");
 	}
 
 	
