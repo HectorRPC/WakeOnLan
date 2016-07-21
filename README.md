@@ -8,9 +8,10 @@ Basada en el modelo MVC, la aplicación permite organizar los aularios, aulas y 
 * [x] Diseño de backend
 * [x] Implementación de la Base de Datos
 * [x] Implementación del apartado *WakeOnLan*
-* [ ] Implementación del apartado *User*
+* [x] Implementación del apartado *User*
+* [x] Arranque remoto de ordenadores
 * [ ] Implementación de seguridad TLS
-* [ ] Diseño de Front End
+* [x] Diseño de Front End
 * [ ] Implementación de Front End
 * [ ] Diseño e implementación de futuras funcionalidades
 
