@@ -10,12 +10,13 @@ Basada en el modelo MVC, la aplicación permite organizar los aularios, aulas y 
 * [x] Implementación del apartado *WakeOnLan*
 * [x] Implementación del apartado *User*
 * [x] Arranque remoto de ordenadores
-* [ ] Implementación de seguridad TLS
 * [x] Diseño de Front End
-* [ ] Implementación de Front End
+* [ ] Implementación de Front End (en progreso)
+* [ ] Implementación de seguridad (TLS o similar)
 * [ ] Diseño e implementación de futuras funcionalidades
 
 ## Tecnologías utilizadas
+* Java 8
 * Spring
 * Maven
 * Hibernate
