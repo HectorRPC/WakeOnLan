@@ -8,7 +8,7 @@ public interface OrdenadorRepository extends CrudRepository<Ordenador,Long> {
 	
 	List<Ordenador> findByIpStr(String ipStr);
 	List<Ordenador> findByMacStr(String macStr);
-	List<Ordenador> findByNombre(String nombre);
+	Ordenador findByNombre(String nombre);
 	List<Ordenador> findByNombreContaining(String nombre);
 	List<Ordenador> findAll();
 	List<Ordenador> findByAula(Aula aula);

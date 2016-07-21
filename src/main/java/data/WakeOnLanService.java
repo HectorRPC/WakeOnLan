@@ -18,6 +18,12 @@ public class WakeOnLanService {
 		return ordenadorRepo.findAll();
 	}
 	
+	//Enciende un ordenador
+	public boolean wakeOrdenador(String nombre){
+		Ordenador ord = ordenadorRepo.findByNombre(nombre);
+		return ord.wakeOrdenador();
+	}
+	
 	//Devuelve todos los ordenadores con una IP determinada
 	public Iterable<Ordenador> getOrdenadoresIP(String ipStr){
 		return ordenadorRepo.findByIpStr(ipStr);
@@ -31,6 +37,11 @@ public class WakeOnLanService {
 	//Devuelve todos los ordenadores que contienen el Sring especificado en su nombre de equipo
 	public Iterable<Ordenador> getOrdenadoresNombre(String nombre_equipo){
 		return ordenadorRepo.findByNombreContaining(nombre_equipo);
+	}
+	
+	//Devuelve todos los ordenadores que contienen el Sring especificado en su nombre de equipo
+	public Ordenador getOrdenadorNombre(String nombre_equipo){
+		return ordenadorRepo.findByNombre(nombre_equipo);
 	}
 	
 	//Devuelve todos los ordenadores de un aula determinada

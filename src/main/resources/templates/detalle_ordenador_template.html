@@ -54,16 +54,14 @@
 
     <div class="container-fluid">
         <div class="panel panel-primary">
-            <div class="panel-heading">
-                Resultado de búsqueda
-            </div>
             <!-- List group -->
             <ul class="list-group">
-                <li class="list-group-item" th:each="ordenador : ${ordenadores}">
+                <li class="list-group-item">
                     <div class="row">
-                        <div th:text="${ordenador.nombre}" class="col-xs-8 col-sm-10 col-md-10">Nombre de equipo</div>
-                        <div class="col-xs-4 col-sm-2 col-md-2">
-                            <a role="button" th:href="|/ordenadores/${ordenador.nombre}|" class="btn btn-info">Detalles</a>
+                        <div th:text="${ordenador.nombre}" class="col-xs-7 col-sm-8 col-md-8">Nombre de equipo</div>
+                        
+                        <div class="col-xs-5 col-sm-4 col-md-4">
+                            <a role="button" th:href="|/ordenadores/${ordenador.nombre}/wake|" class="btn btn-info">Encender</a>
                         </div>
                     </div>
                 </li>
