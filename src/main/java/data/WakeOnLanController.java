@@ -31,7 +31,7 @@ public class WakeOnLanController {
 		return new ModelAndView("index_template");
 	}
 		
-	//Devuelve una lista de todos los ordenadores
+	//Menu
 	@RequestMapping(value = "/menu", method = RequestMethod.GET)
 	public ModelAndView menu(HttpSession session){
 		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
@@ -41,7 +41,6 @@ public class WakeOnLanController {
 		}
 	}
 		
-	
 	//Devuelve una lista de todos los ordenadores
 	@RequestMapping(value = "/ordenadores/todos", method = RequestMethod.GET)
 	public ModelAndView getOrdenadores(HttpSession session){
@@ -53,20 +52,37 @@ public class WakeOnLanController {
 	}
 	
 	//Lista de ordenadores por nombre
-			@RequestMapping(value = "/ordenadores", method = RequestMethod.GET)
-			public ModelAndView getOrdenadoresByNombre(HttpSession session, @RequestParam String nombre){
-				if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
-					return new ModelAndView("lista_ordenadores_template").addObject("ordenadores", this.wolService.getOrdenadoresNombre(nombre));
-				}else{
-					return new ModelAndView("index_template");
-				}
+		@RequestMapping(value = "/ordenadores", method = RequestMethod.GET)
+		public ModelAndView getOrdenadoresByNombre(HttpSession session, @RequestParam String nombre){
+			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+				return new ModelAndView("lista_ordenadores_template").addObject("ordenadores", this.wolService.getOrdenadoresNombre(nombre));
+			}else{
+				return new ModelAndView("index_template");
 			}
-	
-	
-	
-	
-	//Detalles de un ordenador
-		@RequestMapping(value = "/ordenadores/{nombre_equipo}", method = RequestMethod.GET)
+		}
+		
+	//Lista de ordenadores por ip
+		@RequestMapping(value = "/ordenadores/ip", method = RequestMethod.GET)
+		public ModelAndView getOrdenadoresByIp(HttpSession session, @RequestParam String ip){
+			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+				return new ModelAndView("lista_ordenadores_template").addObject("ordenadores", this.wolService.getOrdenadoresIP(ip));
+			}else{
+				return new ModelAndView("index_template");
+			}
+		}
+		
+	//Lista de ordenadores por mac
+		@RequestMapping(value = "/ordenadores/mac", method = RequestMethod.GET)
+		public ModelAndView getOrdenadoresByMac(HttpSession session, @RequestParam String mac){
+			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+				return new ModelAndView("lista_ordenadores_template").addObject("ordenadores", this.wolService.getOrdenadoresMAC(mac));
+			}else{
+				return new ModelAndView("index_template");
+			}
+		}
+			
+	//Detalles de un ordenador por Nombre de equipo
+		@RequestMapping(value = "/ordenadores/{nombre_equipo}")
 		public ModelAndView getDetalleOrdenador(HttpSession session, @PathVariable("nombre_equipo") String nombre_equipo){
 			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
 				return new ModelAndView("detalle_ordenador_template").addObject("ordenador", this.wolService.getOrdenadorNombre(nombre_equipo));
@@ -74,7 +90,7 @@ public class WakeOnLanController {
 				return new ModelAndView("index_template");
 			}
 		}
-	
+		
 	//Devuelve una lista de los ordenadores de un aula
 	@RequestMapping(value="/aulas/{aula}", method = RequestMethod.GET)
 	public ModelAndView getOrdenadorAula(@PathVariable("aula") int aula, HttpSession session){
@@ -103,9 +119,9 @@ public class WakeOnLanController {
 	
 	//Elimina un ordenador
 	@RequestMapping(value = "/ordenador/delete", method = RequestMethod.POST)
-	public ModelAndView deleteOrdenador(@RequestParam Ordenador ordenador, HttpSession session){
+	public ModelAndView deleteOrdenador(@RequestParam String nombre, HttpSession session){
 		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
-			if (wolService.deleteOrdenador(ordenador)){
+			if (wolService.deleteOrdenador(nombre)){
 				return new ModelAndView("actionPerformed").addObject("status", "exito");
 			}else{
 				return new ModelAndView("actionPerformed").addObject("status", "error");
@@ -114,6 +130,17 @@ public class WakeOnLanController {
 			return new ModelAndView("index_template");
 		}
 	}
+	
+	//Formulario para añadir un ordenador
+		@RequestMapping(value = "/ordenadores/addOrdenadorForm")
+		public ModelAndView addOrdenadorForm(HttpSession session){
+			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+				return new ModelAndView("addOrdenadorForm_template").addObject("aularios", wolService.getAularios());
+			}else{
+				return new ModelAndView("index_template");
+			}
+			
+		}
 	
 	//Añade un ordenador
 	@RequestMapping(value = "/ordenador", method = RequestMethod.POST)
@@ -142,9 +169,9 @@ public class WakeOnLanController {
 	
 	//Devuelve una lista de las aulas de un aulario
 	@RequestMapping(value="/aulario/{aulario}", method = RequestMethod.GET)
-	public ModelAndView getAulasAulario(@RequestParam("aulario") int aulario, HttpSession session){
+	public ModelAndView getAulasAulario(@PathVariable("aulario") String aulario, HttpSession session){
 		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
-			return new ModelAndView("aulas").addObject("aulas", this.wolService.getAulariosNumero(aulario).getAulas());
+			return new ModelAndView("aulas").addObject("aulas", this.wolService.getAularioNombre(aulario).getAulas());
 		}else{
 			return new ModelAndView("index_template");
 		}
@@ -217,6 +244,9 @@ public class WakeOnLanController {
 				return new ModelAndView("index_template");
 			}
 		}
+		
+		
+		
 		
 		
 		

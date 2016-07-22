@@ -18,15 +18,15 @@ public class Aulario {
 	@OneToMany(mappedBy="aulario")
 	private List<Aula> aulas;
 	
-	private int numero;
+	private String nombre;
 
 	//Constructores
     public Aulario() {
     }
 
-    public Aulario(List<Aula> aulas, int numero) {
+    public Aulario(List<Aula> aulas, String nombre) {
         this.aulas = aulas;
-        this.numero = numero;
+        this.nombre = nombre;
     }
 
     //Getters & Setters
@@ -38,12 +38,12 @@ public class Aulario {
         this.aulas = aulas;
     }
 
-    public int getNumero() {
-		return numero;
+    public String getNombre() {
+		return nombre;
 	}
 
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	

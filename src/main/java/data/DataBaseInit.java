@@ -24,11 +24,13 @@ public class DataBaseInit implements CommandLineRunner{
 	
 	@Override
 	public void run(String... arg) throws Exception{
-		Aulario aulario2 = new Aulario(new ArrayList<Aula>(), 1);
+		Aulario aulario1 = new Aulario(new ArrayList<Aula>(), "Aulario 1");
+		Aulario aulario2 = new Aulario(new ArrayList<Aula>(), "Aulario 2");
 		Aula aula102 = new Aula(new ArrayList<Ordenador>(), aulario2, 102);
 		Ordenador ordenador1 = new Ordenador(aula102, "193.147.76.150", "F8-B1-56-A7-9D-57", "ao-aul2-a102-39");
 		userRepo.save(new User("admin", "Administrador", "admin", "admin@urjc.es", true));
 		userRepo.save(new User("user", "User", "user", "user@urjc.es", false));
+		aularioRepo.save(aulario1);
 		aularioRepo.save(aulario2);
 		aulaRepo.save(aula102);
 		ordenadorRepo.save(ordenador1);

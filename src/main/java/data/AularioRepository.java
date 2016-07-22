@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface AularioRepository extends CrudRepository<Aulario,Long> {
 	
-	Aulario findByNumero(int numero);
+	Aulario findByNombre(String nombre);
+	List<Aulario> findByNombreContaining(String nombre);
 	List<Aulario> findAll();
 }

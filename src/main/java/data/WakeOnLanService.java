@@ -24,12 +24,12 @@ public class WakeOnLanService {
 		return ord.wakeOrdenador();
 	}
 	
-	//Devuelve todos los ordenadores con una IP determinada
+	//Devuelve el ordenador con una IP determinada
 	public Iterable<Ordenador> getOrdenadoresIP(String ipStr){
 		return ordenadorRepo.findByIpStr(ipStr);
 	}
 	
-	//Devuelve todos los ordenadores con una direccion MAC determinada
+	//Devuelve el ordenador con una direccion MAC determinada
 	public Iterable<Ordenador> getOrdenadoresMAC(String macStr){
 		return ordenadorRepo.findByMacStr(macStr);
 	}
@@ -39,7 +39,7 @@ public class WakeOnLanService {
 		return ordenadorRepo.findByNombreContaining(nombre_equipo);
 	}
 	
-	//Devuelve todos los ordenadores que contienen el Sring especificado en su nombre de equipo
+	//Devuelve el ordenador cuyo nombre coincide con el parametro proporcionado.
 	public Ordenador getOrdenadorNombre(String nombre_equipo){
 		return ordenadorRepo.findByNombre(nombre_equipo);
 	}
@@ -69,10 +69,15 @@ public class WakeOnLanService {
 		return aularioRepo.findAll();
 	}
 	
-	//Devuelve todos los aularios con un determinado numero
-	public Aulario getAulariosNumero(int numero){
-		return aularioRepo.findByNumero(numero);
+	//Devuelve el aulario con un determinado nombre
+	public Aulario getAularioNombre(String nombre){
+		return aularioRepo.findByNombre(nombre);
 	}
+	
+	//Devuelve todos los aularios que contienen un nombre
+		public Iterable<Aulario> getAulariosNombre(String nombre){
+			return aularioRepo.findByNombreContaining(nombre);
+		}
 	
 	//Añade un ordenador al repositorio
 	public boolean addOrdenador(Ordenador ordenador){
@@ -105,8 +110,9 @@ public class WakeOnLanService {
 	}
 	
 	//Elimina un ordenador del repositorio
-	public boolean deleteOrdenador(Ordenador ordenador){
+	public boolean deleteOrdenador(String nombre){
 		try{
+			Ordenador ordenador = ordenadorRepo.findByNombre(nombre);
 			ordenadorRepo.delete(ordenador);
 		}catch(Exception e){
 			return false;
