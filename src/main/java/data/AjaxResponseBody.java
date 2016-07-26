@@ -13,7 +13,7 @@ public class AjaxResponseBody {
 	String code;
 	
 	@JsonView(Views.Public.class)
-	List<Aula> aulas;
+	List<Integer> aulas;
 
 	public String getMsg() {
 		return msg;
@@ -31,11 +31,11 @@ public class AjaxResponseBody {
 		this.code = code;
 	}
 
-	public List<Aula> getAulas() {
+	public List<Integer> getAulas() {
 		return aulas;
 	}
 
-	public void setAulas(List<Aula> aulas) {
+	public void setAulas(List<Integer> aulas) {
 		this.aulas = aulas;
 	}
 

@@ -92,9 +92,7 @@
                         <label for="inputUser" class="col-sm-4 control-label">Aulario</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="selectAulario" onchange="handleSelect()">
-                                <option>
-                                    Aulario
-                                </option>
+                                <option selected="true" disabled="disabled">Seleccione aulario...</option>
                                 <option th:each="aulario : ${aularios}" th:value="${aulario.nombre}" th:text="${aulario.nombre}">Aulario</option>
                                 
                             </select>
@@ -104,7 +102,6 @@
                         <label for="inputUser" class="col-sm-4 control-label">Aula</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="selectAula" disabled="true">
-                                <option>Aula</option>
                             </select>
                         </div>
                     </div>
@@ -120,37 +117,7 @@
 
     </div>
 </body>
-<script>
-    function handleSelect() {
-        var aulario = document.getElementById('selectAulario');
-        $.ajax({
-			type : "POST",
-			contentType : "application/json",
-			url : "${home}ajax/aulas",
-			data : JSON.stringify(aulario),
-			dataType : 'json',
-			timeout : 100000,
-			success : function(data) {
-				console.log("SUCCESS: ", data);
-				display(data);
-			},
-			error : function(e) {
-				console.log("ERROR: ", e);
-				display(e);
-			},
-			done : function(e) {
-				console.log("DONE");
-				enableSearchButton(true);
-			}
-		});
-        
-    }
     
-    function display(data) {
-		var json = "<h4>Ajax Response</h4><pre>"
-				+ JSON.stringify(data, null, 4) + "</pre>";
-		$('#feedback').html(json);
-	}
-    
-</script>
+    <script src="/js/script.js"></script>
+
 </html>

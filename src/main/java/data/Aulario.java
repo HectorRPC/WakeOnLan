@@ -57,6 +57,20 @@ public class Aulario {
         this.aulas.remove(this.aulas.indexOf(aula));
     }
     
+    //Lista de nombre de las aulas
+    public ArrayList<Integer> aulasNombre(){
+    	ArrayList<Integer> result = new ArrayList<>();
+    	try{
+    		for (Aula aula : this.aulas) {
+        		result.add(aula.getNumero());
+    		}
+    	}catch (Exception e){
+    		e.printStackTrace();
+    	}
+    	
+    	return result;
+    }
+    
     //Enciende todos los ordenadores de un aulario.
     public boolean wakeAulario(){
         boolean b = true;
