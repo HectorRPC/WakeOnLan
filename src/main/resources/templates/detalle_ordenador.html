@@ -16,7 +16,7 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" type="text/css" media="all" th:href="@{css/style.css}" />
+   	<link rel="stylesheet" type="text/css" media="all" th:href="@{/css/style.css}" />
 </head>
 
 <body class="container">
@@ -35,7 +35,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>
+                    <li class="">
                         <!-- Busqueda de ordenador por nombre -->
                         <form action="/ordenadores" method="get" class="navbar-form" role="search">
                             <div class="input-group">
@@ -119,7 +119,5 @@
     </div>
     <br/>
 </body>
-
-<script th:src="@{/js/script.js}"></script>
-
+<script src="/js/script.js"></script>
 </html>
