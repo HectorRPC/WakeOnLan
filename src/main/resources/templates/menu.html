@@ -15,8 +15,7 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" type="text/css" media="all" href="css/style.css" th:href="@{css/style.css}" />
+    <link rel="stylesheet" href="css/style.css"></link>
 </head>
 
 <body class="container">
@@ -109,76 +108,50 @@
         <div id="menu_aulas" class="row">
             <h3 class="text-center">Aulas
             </h3>
-            <div id="ordenador" class="text-center col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
-                <!-- Busqueda de ordenador por nombre -->
-                <form class="form-horizontal" action="/ordenadores" method="get" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Nombre de equipo" name="nombre" pattern=".{3,}" title="Mínimo 3 caracteres" required="required" />
-                        <div class="input-group-btn ">
-                            <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i> Equipo</button>
+            <div id="aulas" class="text-center col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
+                <!-- Busqueda de aula por aulario -->
+                <form role="form" class="form-horizontal" action="/aulario/aula" method="get">
+                    <div class="form-group">
+                        <label for="inputUser" class="col-sm-4 control-label">Aulario</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="selectAulario" name="aulario" onchange="handleSelect()" required="true">
+                                <option selected="true" disabled="disabled">Seleccione aulario...</option>
+                                <option th:each="aulario : ${aularios}" th:value="${aulario.nombre}" th:text="${aulario.nombre}">Aulario</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputUser" class="col-sm-4 control-label">Aula</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="selectAula" name="aula" disabled="true" required="true">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            
+                            <button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-search"></i> Ver aula</button>
                         </div>
                     </div>
                 </form>
-                <br/>
-                <!-- Busqueda de ordenador por IP -->
-                <form class="form-horizontal" action="/ordenadores/ip" method="get" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Dirección IP" name="ip" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$" title="Introduce una dirección IP válida (xxx.xxx.xxx.xxx)" required="required" />
-                        <div class="input-group-btn ">
-                            <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i> IP</button>
-                        </div>
-                    </div>
-                </form>
-                <br/>
-                <!-- Busqueda de ordenador por MAC -->
-                <form class="form-horizontal" action="/ordenadores/mac" method="get" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Direccion MAC" name="mac" pattern=".{3,}" title="Introduce una dirección MAC válida (XX:XX:XX:XX:XX:XX o XX-XX-XX-XX-XX-XX)" required="required" />
-                        <div class="input-group-btn">
-                            <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i> MAC</button>
-                        </div>
-                    </div>
-                </form>
-                <br/>
-            </div>
-        </div>
-        <div id="menu_aularios" class="row">
-            <h3 class="text-center">Aularios
-            </h3>
-            <div id="ordenador" class="text-center col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
-                <!-- Busqueda de ordenador por nombre -->
-                <form class="form-horizontal" action="/ordenadores" method="get" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Nombre de equipo" name="nombre" pattern=".{3,}" title="Mínimo 3 caracteres" required="required" />
-                        <div class="input-group-btn ">
-                            <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i> Equipo</button>
-                        </div>
-                    </div>
-                </form>
-                <br/>
-                <!-- Busqueda de ordenador por IP -->
-                <form class="form-horizontal" action="/ordenadores/ip" method="get" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Dirección IP" name="ip" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$" title="Introduce una dirección IP válida (xxx.xxx.xxx.xxx)" required="required" />
-                        <div class="input-group-btn ">
-                            <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i> IP</button>
-                        </div>
-                    </div>
-                </form>
-                <br/>
-                <!-- Busqueda de ordenador por MAC -->
-                <form class="form-horizontal" action="/ordenadores/mac" method="get" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Direccion MAC" name="mac" pattern=".{3,}" title="Introduce una dirección MAC válida (XX:XX:XX:XX:XX:XX o XX-XX-XX-XX-XX-XX)" required="required" />
-                        <div class="input-group-btn">
-                            <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i> MAC</button>
-                        </div>
-                    </div>
-                </form>
+                <div>
+                    <a type="button" href="/aulas" class="btn btn-primary">Ver todas</a>
+                    <a role="button" class="btn btn-danger" href="/aulas/addAulaForm" type="button">Añadir</a>
+                </div>
                 <br/>
             </div>
         </div>
     </div>
 </body>
-
+<script th:src="@{/js/script.js}"></script>
+<script th:src="@{./js/script.js}"></script>
+<script th:src="@{js/script.js}"></script>
+<script src="/js/script.js"></script>
+<script src="./js/script.js"></script>
+<script src="js/script.js"></script>
+<script src="static/js/script.js"></script>
+<script src="/static/js/script.js"></script>
+<script src="./static/js/script.js"></script>
+<script src="../js/script.js"></script>
 </html>

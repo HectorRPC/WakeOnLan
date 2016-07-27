@@ -1,5 +1,7 @@
 package data;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +24,6 @@ public class WakeOnLanController {
 	@Autowired
 	private UserService userService;
 	
-	
-		
-		
 	//Devuelve la página de inicio
 	@RequestMapping(value = "/")
 	public ModelAndView index(HttpSession session){
@@ -35,7 +34,7 @@ public class WakeOnLanController {
 	@RequestMapping(value = "/menu", method = RequestMethod.GET)
 	public ModelAndView menu(HttpSession session){
 		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
-			return new ModelAndView("menu");
+			return new ModelAndView("menu").addObject("aularios", wolService.getAularios());
 		}else{
 			return new ModelAndView("index_template");
 		}
@@ -94,17 +93,6 @@ public class WakeOnLanController {
 			}
 		}
 		
-	//Devuelve una lista de los ordenadores de un aula
-	@RequestMapping(value="/aulas/{aula}", method = RequestMethod.GET)
-	public ModelAndView getOrdenadorAula(@PathVariable("aula") int aula, HttpSession session){
-		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
-			Aula a = this.wolService.getAulasNumero(aula).iterator().next();
-			return new ModelAndView("lista_ordenadores_template").addObject("ordenadores", this.wolService.getOrdenadoresAula(a));
-		}else{
-			return new ModelAndView("index_template");
-		}
-			
-	}
 	
 	//Enciende un ordenador
 		@RequestMapping(value = "/ordenadores/{nombre}/wake", method = RequestMethod.GET)
@@ -204,21 +192,86 @@ public class WakeOnLanController {
 		
 	}
 		
+	//Devuelve una lista de los ordenadores de un aula
+		@RequestMapping(value="/aulario/aula", method = RequestMethod.GET)
+		public ModelAndView getOrdenadorAula(@RequestParam String aulario, @RequestParam int aula, HttpSession session){
+			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+				Aulario au = wolService.getAularioNombre(aulario);
+				Aula aulaAux = null;
+				for (Aula a: au.getAulas()){
+					if(a.getNumero() == aula){
+						aulaAux = a;
+						break;
+					}
+				}
+				return new ModelAndView("ordenadores_aula_template").addObject("ordenadores", this.wolService.getOrdenadoresAula(aulaAux)).addObject("aula", aulaAux);
+			}else{
+				return new ModelAndView("index_template");
+			}
+				
+		}
+		
+		
+		//Detalles de un aula
+		@RequestMapping(value = "/{aulario}/{aula}")
+		public ModelAndView getDetalleAula(HttpSession session, @PathVariable("aulario") String aulario, @PathVariable("aula") int aula){
+			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+				//TODO
+				Aulario au = wolService.getAularioNombre(aulario);
+				Aula aulaAux = null;
+				for (Aula a: au.getAulas()){
+					if(a.getNumero() == aula){
+						aulaAux = a;
+						break;
+					}
+				}
+				return new ModelAndView("detalle_aula").addObject("aula", aulaAux);
+			}else{
+				return new ModelAndView("index_template");
+			}
+		}
+		
+	//Modifica un aula
+	@RequestMapping(value = "/aula/modificar", method = RequestMethod.POST)
+	public ModelAndView modificarAula(@RequestParam int numeroOri, @RequestParam int numero, @RequestParam String aulario, HttpSession session){
+		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+			Aula aulaOri = null;
+			Aula aulaNueva = null;
+			boolean t = false;
+			for (Aula a: wolService.getAulas()){
+				if (t){break;}
+				if(a.getNumero() == numero){
+					aulaNueva = a;
+				}else if(a.getNumero() == numeroOri){
+					aulaOri = a;
+				}
+			}
+			if (aulaNueva != null){
+				return new ModelAndView("actionPerformed").addObject("status", "error");
+			}
+			aulaOri.setNumero(numero);
+			return new ModelAndView("actionPerformed").addObject("status", "exito");
+		}else{
+			return new ModelAndView("index_template");
+		}
+		
+	}
+		
 	//Devuelve una lista de todas las aulas
 	@RequestMapping(value = "/aulas", method = RequestMethod.GET)
 	public ModelAndView getAulas(HttpSession session){
 		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
-			return new ModelAndView("aulas").addObject("aulas", this.wolService.getAulas());
+			return new ModelAndView("lista_aulas_template").addObject("aulas", this.wolService.getAulas());
 		}else{
 			return new ModelAndView("index_template");
 		}
 	}
 	
-	//Devuelve una lista de las aulas de un aulario
+	//(NO UTILIZADO) Devuelve una lista de las aulas de un aulario
 	@RequestMapping(value="/aulario/{aulario}", method = RequestMethod.GET)
 	public ModelAndView getAulasAulario(@PathVariable("aulario") String aulario, HttpSession session){
 		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
-			return new ModelAndView("aulas").addObject("aulas", this.wolService.getAularioNombre(aulario).getAulas());
+			return new ModelAndView("lista_aulas_template").addObject("aulas", this.wolService.getAularioNombre(aulario).getAulas());
 		}else{
 			return new ModelAndView("index_template");
 		}
@@ -238,12 +291,25 @@ public class WakeOnLanController {
 			return new ModelAndView("index_template");
 		}
 	}
-		
+	
+	//Formulario para añadir un aula
+		@RequestMapping(value = "/aulas/addAulaForm")
+		public ModelAndView addAulaForm(HttpSession session){
+			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+				return new ModelAndView("addAulaForm_template").addObject("aularios", wolService.getAularios());
+			}else{
+				return new ModelAndView("index_template");
+			}
+			
+		}
+			
 	//Añade un aula
 	@RequestMapping(value = "/aula", method = RequestMethod.POST)
-	public ModelAndView addAula(@RequestParam Aula aula, HttpSession session){
+	public ModelAndView addAula(@RequestParam String aulario, @RequestParam int aula, HttpSession session){
 		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
-			if (wolService.addAula(aula)){
+			Aulario au = wolService.getAularioNombre(aulario);
+			Aula aulaAux = new Aula(new ArrayList<Ordenador>(), au, aula);
+			if (wolService.addAula(aulaAux)){
 				return new ModelAndView("actionPerformed").addObject("status", "exito");
 			}else{
 				return new ModelAndView("actionPerformed").addObject("status", "error");

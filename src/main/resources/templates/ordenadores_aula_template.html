@@ -62,11 +62,29 @@
     </nav>
 
     <div class="container-fluid">
-        <h2 th:if="${status == 'exito'}" class="text-center">Operación realizada con éxito.</h2>
-        <h2 th:if="${status == 'error'}" class="text-center">Ha ocurrido un error.</h2>
-        <div class="row text-center">
-            <a role="button" href="/menu" class="btn btn-info">Volver al menú</a>
+        <div class="panel panel-primary">
+            <div class="panel-heading" th:text="${aula.getEdificio().nombre + ' aula ' + aula.numero}">
+                Aulario X aula xxx
+            </div>
+            <!-- List group -->
+            <ul class="list-group">
+                <li class="list-group-item" th:each="ordenador : ${ordenadores}">
+                    <div class="row">
+                        <div th:text="${ordenador.nombre}" class="col-xs-8 col-sm-10 col-md-10">Nombre de equipo</div>
+                        <div class="col-xs-4 col-sm-2 col-md-2">
+                            <a role="button" th:href="|/ordenadores/${ordenador.nombre}|" class="btn btn-info">Detalles</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
+        <div class="container">
+            <div class="row">
+                <div class="text-center col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
+                <a role="button" th:href="|/${aula.getEdificio().nombre}/${aula.numero|" class="btn btn-primary">Ver detalles</a>
+            </div>
+        </div>
+        
     </div>
 </body>
 <script th:src="@{/js/script.js}"></script>
