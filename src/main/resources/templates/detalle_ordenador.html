@@ -63,52 +63,51 @@
 
     <div class="container-fluid">
         <div class="row">
-            <h2 class="text-center">Formulario para añadir un ordenador</h2>
+            <h2 class="text-center">Detalles de ordenador</h2>
         </div>
         <div id="menu_ordenadores" class="row">
             <div id="login-form" class="text-center col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6">
                 <br/>
-                <form role="form" class="form-horizontal" action="/ordenador" method="post">
+                <form role="form" class="form-horizontal" action="/ordenador/modificar" method="post">
+                    <input type="hidden" th:value="${nombre}" name="nombreOri"/>
                     <div class="form-group">
                         <label class="col-sm-4 control-label">Nombre de equipo</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="Nombre de equipo" name="nombre" pattern=".{3,}" title="Mínimo 3 caracteres" required="required" />
+                            <input type="text" class="form-control" th:value="${nombre}" name="nombre"  pattern=".{3,}" title="Mínimo 3 caracteres" required="required" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label">Dirección IP</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="Dirección IP" name="ip" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$" title="Introduce una dirección IP válida (xxx.xxx.xxx.xxx)" required="required" />
+                            <input type="text" class="form-control" th:value="${ip}" name="ip" pattern="((^|\.)((25[0-5])|(2[0-4]\d)|(1\d\d)|([1-9]?\d))){4}$" title="Introduce una dirección IP válida (xxx.xxx.xxx.xxx)" required="required" />
                         </div>
-                        <span id="login-error" th:if="${status != null}"><span th:text="${status}"></span></span>
                     </div>
                     <div class="form-group">
                         <label for="inputUser" class="col-sm-4 control-label">Dirección MAC</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" placeholder="Direccion MAC" name="mac" pattern=".{3,}" title="Introduce una dirección MAC válida (XX:XX:XX:XX:XX:XX o XX-XX-XX-XX-XX-XX)" required="required" />
+                            <input type="text" class="form-control" th:value="${mac}" name="mac" pattern=".{3,}" title="Introduce una dirección MAC válida (XX:XX:XX:XX:XX:XX o XX-XX-XX-XX-XX-XX)" required="required" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputUser" class="col-sm-4 control-label">Aulario</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="selectAulario" name="aulario" onchange="handleSelect()">
-                                <option selected="true" disabled="disabled">Seleccione aulario...</option>
-                                <option th:each="aulario : ${aularios}" th:value="${aulario.nombre}" th:text="${aulario.nombre}">Aulario</option>
-                                
+                                <option th:each="aularioEach : ${aularios}" th:value="${aularioEach.nombre}" th:text="${aularioEach.nombre}" th:selected="${aulario == aularioEach.nombre}">Aulario</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputUser" class="col-sm-4 control-label">Aula</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="selectAula" name="aula" disabled="true">
+                            <select class="form-control" id="selectAula" name="aula">
+                                <option th:each="aulaEach : ${aulas}" th:value="${aulaEach.numero}" th:text="${aulaEach.numero}" th:selected="${aula == aulaEach.numero}">Aula</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-8">
                             <button type="reset" class="btn btn-danger">Limpiar campos</button>
-                            <button type="submit" class="btn btn-info">Añadir ordenador</button>
+                            <button type="submit" class="btn btn-info">Modificar datos</button>
                         </div>
                     </div>
                 </form>

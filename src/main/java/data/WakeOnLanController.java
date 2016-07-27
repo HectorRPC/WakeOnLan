@@ -85,7 +85,10 @@ public class WakeOnLanController {
 		@RequestMapping(value = "/ordenadores/{nombre_equipo}")
 		public ModelAndView getDetalleOrdenador(HttpSession session, @PathVariable("nombre_equipo") String nombre_equipo){
 			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
-				return new ModelAndView("detalle_ordenador_template").addObject("ordenador", this.wolService.getOrdenadorNombre(nombre_equipo));
+				Ordenador o = this.wolService.getOrdenadorNombre(nombre_equipo);
+				Aula a = o.getAula();
+				Aulario au = a.getEdificio();
+				return new ModelAndView("detalle_ordenador").addObject("nombre", o.getNombre()).addObject("mac", o.getMacStr()).addObject("ip", o.getIpStr()).addObject("aulario", au.getNombre()).addObject("aularios", wolService.getAularios()).addObject("aula", a.getNumero()).addObject("aulas", wolService.getAulasAulario(au));
 			}else{
 				return new ModelAndView("index_template");
 			}
@@ -144,8 +147,24 @@ public class WakeOnLanController {
 	
 	//Añade un ordenador
 	@RequestMapping(value = "/ordenador", method = RequestMethod.POST)
-	public ModelAndView addOrdenador(@RequestParam Ordenador ordenador, HttpSession session){
+	public ModelAndView addOrdenador(@RequestParam String nombre, @RequestParam String ip, @RequestParam String mac, @RequestParam String aulario, @RequestParam int aula, HttpSession session){
 		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+			Ordenador ord = wolService.getOrdenadorNombre(nombre);
+			if(ord != null){
+				return new ModelAndView("actionPerformed").addObject("status", "error");
+			}
+			Aulario aularioAux = wolService.getAularioNombre(aulario);
+			Aula aulaAux = null;
+			for (Aula aulaIt: wolService.getAulasAulario(aularioAux)){
+				if (aulaIt.getNumero() == aula){
+					aulaAux = aulaIt;
+					break;
+				}
+			}
+			if (aulaAux == null){
+				return new ModelAndView("actionPerformed").addObject("status", "error");
+			}
+			Ordenador ordenador = new Ordenador(aulaAux, ip, mac, nombre);
 			if (wolService.addOrdenador(ordenador)){
 				return new ModelAndView("actionPerformed").addObject("status", "exito");
 			}else{
@@ -157,6 +176,34 @@ public class WakeOnLanController {
 		
 	}
 	
+	//Modifica un ordenador
+	@RequestMapping(value = "/ordenador/modificar", method = RequestMethod.POST)
+	public ModelAndView modificarOrdenador(@RequestParam String nombreOri, @RequestParam String nombre, @RequestParam String ip, @RequestParam String mac, @RequestParam String aulario, @RequestParam int aula, HttpSession session){
+		if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
+			wolService.deleteOrdenador(nombreOri);
+			Aulario aularioAux = wolService.getAularioNombre(aulario);
+			Aula aulaAux = null;
+			for (Aula aulaIt: wolService.getAulasAulario(aularioAux)){
+				if (aulaIt.getNumero() == aula){
+					aulaAux = aulaIt;
+					break;
+				}
+			}
+			if (aulaAux == null){
+				return new ModelAndView("actionPerformed").addObject("status", "error");
+			}
+			Ordenador ordenador = new Ordenador(aulaAux, ip, mac, nombre);
+			if (wolService.addOrdenador(ordenador)){
+				return new ModelAndView("actionPerformed").addObject("status", "exito");
+			}else{
+				return new ModelAndView("actionPerformed").addObject("status", "error");
+			}
+		}else{
+			return new ModelAndView("index_template");
+		}
+		
+	}
+		
 	//Devuelve una lista de todas las aulas
 	@RequestMapping(value = "/aulas", method = RequestMethod.GET)
 	public ModelAndView getAulas(HttpSession session){

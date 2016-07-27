@@ -31,6 +31,7 @@ function handleSelect() {
 
 }
 
+
 function display(data) {
     var json = JSON.stringify(data, null, 4);
     $('#feedback').html(json);
