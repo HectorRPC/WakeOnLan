@@ -3,6 +3,7 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +16,7 @@ public class Aulario {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@OneToMany(mappedBy="aulario")
+	@OneToMany(mappedBy="aulario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Aula> aulas;
 	
 	private String nombre;

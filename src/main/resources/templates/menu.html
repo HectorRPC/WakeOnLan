@@ -142,6 +142,36 @@
                 <br/>
             </div>
         </div>
+        <div id="menu_aulas" class="row">
+            <h3 class="text-center">Aularios
+            </h3>
+            <div id="aulas" class="text-center col-xs-12 col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">
+                <!-- Busqueda de aularios -->
+                <form role="form" class="form-horizontal" action="/aulario/lista" method="get">
+                    <div class="form-group">
+                        <label for="inputUser" class="col-sm-4 control-label">Aulario</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="selectAulario" name="aulario" required="true">
+                                <option selected="true" disabled="disabled">Seleccione aulario...</option>
+                                <option th:each="aulario : ${aularios}" th:value="${aulario.nombre}" th:text="${aulario.nombre}">Aulario</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            
+                            <button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-search"></i> Ver aulario</button>
+                        </div>
+                    </div>
+                </form>
+                <div>
+                    <a type="button" href="/aularios" class="btn btn-primary">Ver todos</a>
+                    <a role="button" class="btn btn-danger" href="/aularios/addAularioForm" type="button">Añadir</a>
+                </div>
+                <br/>
+            </div>
+        </div>
     </div>
 </body>
 <script th:src="@{/js/script.js}"></script>

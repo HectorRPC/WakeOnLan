@@ -9,4 +9,5 @@ public interface AulaRepository extends CrudRepository<Aula,Long> {
 	List<Aula> findByNumero(int numero);
 	List<Aula> findAll();
 	List<Aula> findByAulario(Aulario aulario);
+	Aula findByAularioAndNumero(Aulario aulario, int numero);
 }

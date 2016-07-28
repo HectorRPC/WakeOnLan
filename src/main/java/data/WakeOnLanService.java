@@ -64,6 +64,11 @@ public class WakeOnLanService {
 		return aulaRepo.findByAulario(aulario);
 	}
 	
+	//Devuelve el aulas de un determinado aulario y numero
+		public Aula getAulasAularioAndNumero(Aulario aulario, int numero){
+			return aulaRepo.findByAularioAndNumero(aulario, numero);
+		}
+	
 	//Devuelve todos los aularios
 	public Iterable<Aulario> getAularios(){
 		return aularioRepo.findAll();
