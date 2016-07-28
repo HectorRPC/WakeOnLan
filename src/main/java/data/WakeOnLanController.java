@@ -213,7 +213,7 @@ public class WakeOnLanController {
 		
 		
 		//Detalles de un aula
-		@RequestMapping(value = "/{aulario}/{aula}")
+		@RequestMapping(value = "/{aulario}/{aula}/detalles")
 		public ModelAndView getDetalleAula(HttpSession session, @PathVariable("aulario") String aulario, @PathVariable("aula") int aula){
 			if( session.getAttribute("logged")!=null && (boolean) session.getAttribute("logged")){
 				//TODO
