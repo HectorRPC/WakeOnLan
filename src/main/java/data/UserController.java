@@ -28,7 +28,7 @@ public class UserController {
 		if ((usr != null)&&(usr.getPass().equals(pass))) {
 			session.setAttribute("logged", true);
 			session.setAttribute("user", usr.getAlias());
-			return new ModelAndView("menu");
+			return new ModelAndView("login_success");
 		}else{
 			return new ModelAndView("index_template").addObject("status", "Usuario o contraseña incorrectos.");
 		}
